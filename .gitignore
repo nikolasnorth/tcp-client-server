@@ -6,3 +6,6 @@ CMakeLists.txt
 # macos
 .DS_Store
 
+# executables
+dist/
+
