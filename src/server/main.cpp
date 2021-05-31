@@ -44,7 +44,7 @@ int main() {
 
     // Receive data from client
     std::vector<char> buffer(4097);  // allow 1 extra byte for '0'
-    ssize_t num_bytes = recv(client_socket, buffer.data(), buffer.size() - 1, 0);  // recv is not null-terminated. Leave '0' at end
+    ssize_t num_bytes = recv(client_socket, buffer.data(), buffer.size() - 1, 0);  // recv is not null-terminated. Allow for '0' at the end
     if (num_bytes == -1) {
       std::cerr << "Error occurred while reading data from client." << std::endl;
       return 1;
@@ -53,11 +53,11 @@ int main() {
       break;
     }
 
-    std::cerr << "Received: " << std::string(buffer.data(), buffer.size()) << std::endl;
+    std::cout << "Received: " << std::string(buffer.data(), buffer.size()) << std::endl;
 
     // Send response
     std::string res = "Hello from server";
-    send(client_socket, res.c_str(), res.length(), 0);
+    send(client_socket, res.c_str(), res.length() + 1, 0);  // +1 for terminating '0' of c_str
 
     close(client_socket);
   }
