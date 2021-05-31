@@ -53,7 +53,8 @@ int main() {
       break;
     }
 
-    std::cout << "Received: " << std::string(buffer.data(), buffer.size()) << std::endl;
+    // Log data from client
+    std::cout << "[Client]: " << std::string(buffer.data(), buffer.size()) << std::endl;
 
     // Send response
     std::string res = "Hello from server";
