@@ -46,11 +46,13 @@ int main() {
   ssize_t num_bytes_sent = send(s, user_input.c_str(), user_input.size() + 1, 0);  // +1 needed for terminating '0' of c_str
   if (num_bytes_sent == -1) {
     std::cerr << "Cannot send data to client" << std::endl;
+    return 1;
   }
 
   ssize_t num_bytes_recv = recv(s, buffer.data(), buffer.size() - 1, 0);  // recv is not null-terminated. Allow for '0' at the end
   if (num_bytes_recv == -1) {
     std::cerr << "Cannot receive data from client" << std::endl;
+    return 1;
   }
 
   std::cout << "[Server]: " << std::string(buffer.data(), buffer.size()) << std::endl;
